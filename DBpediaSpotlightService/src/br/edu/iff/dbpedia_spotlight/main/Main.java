@@ -52,10 +52,13 @@ public class Main
 		String inputFile = args[3];
 		String outputFile = args[4];
 		
+		System.out.println("Reading file " + inputFile);
+		
 		//ler o arquivo input file
 		Model input = ModelFactory.createDefaultModel();
 		input.read(inputFile);
 		
+		System.out.println("Processing ...");
 		
 		//output
 		Model output = ModelFactory.createDefaultModel();	
@@ -92,6 +95,9 @@ public class Main
 				                                     language, 
 				                                     confidence, 
 				                                     approver);
+		
+		System.out.println("Generating file " + outputFile);
+		
 		try 
 		{
 			OutputStream out = new FileOutputStream(outputFile);
@@ -103,7 +109,9 @@ public class Main
 		    		           "could not be opened or created.");
 		}
 		
-		System.out.println("\nDone. Bye Bye!");
+		System.out.println("Done!\nCheers,\n     "
+				+ "Prof. Mark Douglas de Azevedo Jacyntho.");
+		
 	}
 
 }
