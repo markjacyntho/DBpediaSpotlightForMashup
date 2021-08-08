@@ -1,6 +1,5 @@
 package br.edu.iff.dbpedia_spotlight.main; 
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Scanner;
@@ -90,27 +89,28 @@ public class Main
 						return result;
 					}
 				};
-		GraphProcessor.soleInstance().processTriples(input, 
-				                                     output, 
-				                                     language, 
-				                                     confidence, 
-				                                     approver);
-		
-		System.out.println("Generating file " + outputFile);
-		
+				
 		try 
 		{
+			GraphProcessor.soleInstance().processTriples(input, 
+										                 output, 
+										                 language, 
+										                 confidence, 
+										                 approver);
+
+			System.out.println("Generating file " + outputFile);
+			
 			OutputStream out = new FileOutputStream(outputFile);
 			output.write(out, outputSyntax(outputFile));
+			
+			System.out.println("\nDone!\n\nCheers,\n     "
+					+ "Prof. Mark Douglas de Azevedo Jacyntho");
 		} 
-		catch (FileNotFoundException e) 
+		catch (Exception e)
 		{
-		    System.out.println("The output file " + outputFile + 
-		    		           "could not be opened or created.");
+			System.out.println("\nThe following problem occurred:\n" + 
+		                        e.getMessage());
 		}
-		
-		System.out.println("\nDone!\n\nCheers,\n     "
-				+ "Prof. Mark Douglas de Azevedo Jacyntho");
 		
 	}
 

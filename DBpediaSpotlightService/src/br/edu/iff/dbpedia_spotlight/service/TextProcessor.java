@@ -46,7 +46,8 @@ public class TextProcessor {
 	private TextProcessor() {}
 	
 	private List<DBpediaResource> createResources(JSONArray entities, 
-			                                      String language)
+			                                      String language) 
+			                                          throws ProcessingException
 	{
 		List<DBpediaResource> result = new ArrayList<DBpediaResource>();
 		int total = entities.length();
@@ -180,7 +181,7 @@ public class TextProcessor {
 		}
 		catch (Exception e)
 		{
-			throw new RuntimeException("Failed DBpedia query: "+e);
+			throw new ProcessingException(e);
 		}
 		finally
 		{
@@ -191,7 +192,8 @@ public class TextProcessor {
 	
 	public List<DBpediaResource> extract(String text, 
 			                             String language,
-			                             double confidence)  
+			                             double confidence) 
+			                            		 throws ProcessingException  
 	{
 		if (text == null || text.trim().isEmpty())
 			throw new IllegalArgumentException("text is mandatory.");
@@ -218,9 +220,6 @@ public class TextProcessor {
 		
 		text = text.trim();
 		
-		
-
-		String spotlightResponse;
 		try {
 			
 			String API_URL = SERVER + "/" + language + "/annotate";
@@ -244,37 +243,27 @@ public class TextProcessor {
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			HttpResponse response = httpClient.execute(request);  
 			
-			if (response.getStatusLine().getStatusCode() != 200) {
-	            throw new RuntimeException("Failed : HTTP error code : "
+			if (response.getStatusLine().getStatusCode() != 200) 
+			{
+	            throw new ProcessingException("HTTP error code : "
 	               + response.getStatusLine().getStatusCode());
 	        }
 			
 			InputStream inputStream = response.getEntity().getContent();
 			
-			spotlightResponse = 
-					new String(inputStream.readAllBytes(), 
-							   StandardCharsets.UTF_8);
-		} catch (Exception e) {
-			throw new RuntimeException("Error: ", e);
+			String spotlightResponse = new String(inputStream.readAllBytes(), 
+							               StandardCharsets.UTF_8);
+			
+			JSONObject resultJSON = new JSONObject(spotlightResponse);
+			JSONArray entities = resultJSON.getJSONArray("Resources");
+			
+			return this.createResources(entities, language);
 		} 
-
-		assert spotlightResponse != null;
-
-		JSONObject resultJSON = null;
-		JSONArray entities = null;
-
-		try 
+		catch (Exception e) 
 		{
-			resultJSON = new JSONObject(spotlightResponse);
-			entities = resultJSON.getJSONArray("Resources");
+			throw new ProcessingException(e);
 		} 
-		catch (JSONException e) 
-		{
-			throw new RuntimeException("Received invalid response from DBpedia "
-					+ "Spotlight API.");
-		}
-
-		return this.createResources(entities, language);
+		
 	}
 
 	

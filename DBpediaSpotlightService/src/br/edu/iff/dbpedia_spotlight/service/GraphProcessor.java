@@ -21,11 +21,12 @@ public class GraphProcessor
 	
 	private GraphProcessor() {}
 	
-	//sem aprovação
+	//without approval
 	public void processTriples(Model input, 
 					           Model output,
 					           String language,
-					           double confidence)
+					           double confidence) 
+					        		   throws ProcessingException
 	{
 		this.processTriples(input, 
 				            output, 
@@ -46,12 +47,13 @@ public class GraphProcessor
 							});
 	}
 	
-	//com aprovação
+	//with approval
 	public void processTriples(Model input, 
 					           Model output,
 					           String language,
 					           double confidence, 
-					           Approver approver)
+					           Approver approver) 
+					        		   throws ProcessingException
 	{
 		for (StmtIterator it = input.listStatements(); it.hasNext();)
 		{
@@ -65,7 +67,8 @@ public class GraphProcessor
 			                   Statement triple,
 			                   String language,
 			                   double confidence, 
-			                   Approver approver)
+			                   Approver approver) 
+			                		   throws ProcessingException
 	{
 		String texto = triple.getString();
 		List<DBpediaResource> resources = 
