@@ -50,7 +50,7 @@ public class TextProcessor {
 	{
 		List<DBpediaResource> result = new ArrayList<DBpediaResource>();
 		int total = entities.length();
-		if (total == 0) return result; //nada a fazer
+		if (total == 0) return result; //nothing to do
 		
 		String resourceVar = "resource";
 		String enSameAsVar = "enSameAs";
