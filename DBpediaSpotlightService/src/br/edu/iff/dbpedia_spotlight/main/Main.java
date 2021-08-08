@@ -58,7 +58,7 @@ public class Main
 		Model input = ModelFactory.createDefaultModel();
 		input.read(inputFile);
 		
-		System.out.println("Processing ...");
+		System.out.println("Processing...");
 		
 		//output
 		Model output = ModelFactory.createDefaultModel();	
@@ -109,8 +109,8 @@ public class Main
 		    		           "could not be opened or created.");
 		}
 		
-		System.out.println("Done!\nCheers,\n     "
-				+ "Prof. Mark Douglas de Azevedo Jacyntho.");
+		System.out.println("\nDone!\n\nCheers,\n     "
+				+ "Prof. Mark Douglas de Azevedo Jacyntho");
 		
 	}
 
