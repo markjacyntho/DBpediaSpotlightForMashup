@@ -26,7 +26,8 @@ import org.json.JSONObject;
 
  
 
-public class Extractor {
+public class Extractor 
+{
 	
 	private static final String SERVER = "https://api.dbpedia-spotlight.org";
 	private static final int SUPPORT = 0;
