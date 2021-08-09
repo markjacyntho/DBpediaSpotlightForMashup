@@ -9,8 +9,8 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 
 import br.edu.iff.dbpedia_spotlight.service.DBpediaResource;
-import br.edu.iff.dbpedia_spotlight.service.GraphProcessor;
-import br.edu.iff.dbpedia_spotlight.service.GraphProcessor.Approver;
+import br.edu.iff.dbpedia_spotlight.service.Linker;
+import br.edu.iff.dbpedia_spotlight.service.Linker.Approver;
 
 public class Main 
 {
@@ -61,11 +61,11 @@ public class Main
 		
 		//output
 		Model output = ModelFactory.createDefaultModel();	
-		GraphProcessor.Approver approver =
+		Linker.Approver approver =
 				new Approver()
 				{
 					@Override
-					public boolean approve(Resource subject, 
+					public boolean execute(Resource subject, 
 							               DBpediaResource current,
 							               int currentPosition,
 							               int numberOfDBpediaResources) 
@@ -92,7 +92,7 @@ public class Main
 				
 		try 
 		{
-			GraphProcessor.soleInstance().processTriples(input, 
+			Linker.soleInstance().execute(input, 
 										                 output, 
 										                 language, 
 										                 confidence, 

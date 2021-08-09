@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
  
 
-public class TextProcessor {
+public class Extractor {
 	
 	private static final String SERVER = "https://api.dbpedia-spotlight.org";
 	private static final int SUPPORT = 0;
@@ -34,16 +34,16 @@ public class TextProcessor {
 			
 	
 	//Singleton
-	private static TextProcessor soleInstance = null;
-	public static TextProcessor soleInstance()
+	private static Extractor soleInstance = null;
+	public static Extractor soleInstance()
 	{
-		if (TextProcessor.soleInstance == null)
-			TextProcessor.soleInstance = new TextProcessor();
+		if (Extractor.soleInstance == null)
+			Extractor.soleInstance = new Extractor();
 		
-		return TextProcessor.soleInstance;
+		return Extractor.soleInstance;
 	}
 	
-	private TextProcessor() {}
+	private Extractor() {}
 	
 	private List<DBpediaResource> createResources(JSONArray entities, 
 			                                      String language) 
@@ -190,7 +190,7 @@ public class TextProcessor {
 		return result;
 	}
 	
-	public List<DBpediaResource> extract(String text, 
+	public List<DBpediaResource> execute(String text, 
 			                             String language,
 			                             double confidence) 
 			                            		 throws ProcessingException  

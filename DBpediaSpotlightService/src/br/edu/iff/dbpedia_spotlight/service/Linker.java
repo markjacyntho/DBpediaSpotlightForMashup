@@ -7,28 +7,28 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 
-public class GraphProcessor 
+public class Linker 
 {
 	//Singleton
-	private static GraphProcessor soleInstance = null;
-	public static GraphProcessor soleInstance()
+	private static Linker soleInstance = null;
+	public static Linker soleInstance()
 	{
-		if (GraphProcessor.soleInstance == null)
-			GraphProcessor.soleInstance = new GraphProcessor();
+		if (Linker.soleInstance == null)
+			Linker.soleInstance = new Linker();
 		
-		return GraphProcessor.soleInstance;
+		return Linker.soleInstance;
 	}
 	
-	private GraphProcessor() {}
+	private Linker() {}
 	
 	//without approval
-	public void processTriples(Model input, 
-					           Model output,
-					           String language,
-					           double confidence) 
-					        		   throws ProcessingException
+	public void execute(Model input, 
+					    Model output,
+					    String language,
+					    double confidence) 
+					    		throws ProcessingException
 	{
-		this.processTriples(input, 
+		this.execute(input, 
 				            output, 
 				            language, 
 				            confidence, 
@@ -36,7 +36,7 @@ public class GraphProcessor
 							{
 
 								@Override
-								public boolean approve(Resource subject, 
+								public boolean execute(Resource subject, 
 										           DBpediaResource current,
 										           int currentPosition,
 										           int numberOfDBpediaResources) 
@@ -48,12 +48,12 @@ public class GraphProcessor
 	}
 	
 	//with approval
-	public void processTriples(Model input, 
-					           Model output,
-					           String language,
-					           double confidence, 
-					           Approver approver) 
-					        		   throws ProcessingException
+	public void execute(Model input, 
+					    Model output,
+					    String language,
+					    double confidence, 
+					    Approver approver) 
+					    		throws ProcessingException
 	{
 		//set namespace prefixes in output model
 		output.setNsPrefixes(input);
@@ -75,7 +75,7 @@ public class GraphProcessor
 	{
 		String texto = triple.getString();
 		List<DBpediaResource> resources = 
-				TextProcessor.soleInstance().extract(texto, 
+				Extractor.soleInstance().execute(texto, 
 						                             language, 
 						                             confidence);
 		int total = resources.size();
@@ -83,7 +83,7 @@ public class GraphProcessor
 		{
 			DBpediaResource current = resources.get(i);
 			
-			if (approver.approve(triple.getSubject(), current, i+1, total))
+			if (approver.execute(triple.getSubject(), current, i+1, total))
 			{
 				output.add(triple.getSubject(), 
 						   triple.getPredicate(), 
@@ -102,7 +102,7 @@ public class GraphProcessor
 
 	public static interface Approver
 	{
-		public boolean approve(Resource subject, 
+		public boolean execute(Resource subject, 
 				               DBpediaResource current,
 				               int currentPosition,
 				               int numberOfDBpediaResources);
