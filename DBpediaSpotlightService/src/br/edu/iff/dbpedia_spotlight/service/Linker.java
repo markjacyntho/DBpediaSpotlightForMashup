@@ -28,26 +28,10 @@ public class Linker
 					    double confidence) 
 					    		throws ProcessingException
 	{
-		this.execute(input, 
-				            output, 
-				            language, 
-				            confidence, 
-				            new Approver() 
-							{
-
-								@Override
-								public boolean execute(Resource subject, 
-										           DBpediaResource current,
-										           int currentPosition,
-										           int numberOfDBpediaResources) 
-								{
-									return true;
-								}
-			
-							});
+		this.execute(input, output, language, confidence, null);
 	}
 	
-	//with approval
+	//with approval (optional)
 	public void execute(Model input, 
 					    Model output,
 					    String language,
@@ -55,7 +39,32 @@ public class Linker
 					    Approver approver) 
 					    		throws ProcessingException
 	{
-		//set namespace prefixes in output model
+		if (input == null)
+			throw new IllegalArgumentException("input is mandatory.");
+		if (output == null)
+			throw new IllegalArgumentException("output is mandatory.");
+		if (language == null || language.trim().isEmpty())
+		    throw new IllegalArgumentException("language is mandatory.");
+		if (confidence < 0 || confidence > 1)
+			throw new IllegalArgumentException(
+					"confidence must be in interval [0,1].");
+		
+		if (approver == null)
+			approver = new Approver() 
+					   {
+			
+							@Override
+							public boolean execute(Resource subject, 
+									               DBpediaResource current,
+									               int currentPosition,
+									               int numberOfDBpediaResources) 
+							{
+								return true;
+							}
+			
+					   };
+		
+		//copy namespace prefixes from input model to output model
 		output.setNsPrefixes(input);
 		
 		for (StmtIterator it = input.listStatements(); it.hasNext();)
@@ -75,9 +84,7 @@ public class Linker
 	{
 		String texto = triple.getString();
 		List<DBpediaResource> resources = 
-				Extractor.soleInstance().execute(texto, 
-						                             language, 
-						                             confidence);
+				Extractor.soleInstance().execute(texto, language, confidence);
 		int total = resources.size();
 		for (int i = 0; i < total; i++)
 		{

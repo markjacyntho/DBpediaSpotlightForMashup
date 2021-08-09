@@ -42,7 +42,7 @@ public class Main
 					+ "\n3) confidence value in interval [0.0, 1.0];"
 					+ "\n4) complete rdf input file path;"
 					+ "\n5) complete rdf output file path.");
-			return; //nada a fazer
+			return; //exit program
 		}	
 		
 		boolean approve = args[0].toLowerCase().charAt(0) == 'y';
@@ -53,13 +53,13 @@ public class Main
 		
 		System.out.println("Reading file " + inputFile);
 		
-		//ler o arquivo input file
+		//read from input file to input model
 		Model input = ModelFactory.createDefaultModel();
 		input.read(inputFile);
 		
 		System.out.println("Processing...");
 		
-		//output
+		//output model
 		Model output = ModelFactory.createDefaultModel();	
 		Linker.Approver approver =
 				new Approver()
@@ -93,13 +93,14 @@ public class Main
 		try 
 		{
 			Linker.soleInstance().execute(input, 
-										                 output, 
-										                 language, 
-										                 confidence, 
-										                 approver);
+						                  output, 
+						                  language, 
+						                  confidence, 
+						                  approver);
 
 			System.out.println("Generating file " + outputFile);
 			
+			//write to output file
 			OutputStream out = new FileOutputStream(outputFile);
 			output.write(out, outputSyntax(outputFile));
 			
