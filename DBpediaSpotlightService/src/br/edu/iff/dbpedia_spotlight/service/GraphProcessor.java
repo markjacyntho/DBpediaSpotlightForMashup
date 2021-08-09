@@ -55,6 +55,9 @@ public class GraphProcessor
 					           Approver approver) 
 					        		   throws ProcessingException
 	{
+		//set namespace prefixes in output model
+		output.setNsPrefixes(input);
+		
 		for (StmtIterator it = input.listStatements(); it.hasNext();)
 		{
 			Statement triple = it.nextStatement();
