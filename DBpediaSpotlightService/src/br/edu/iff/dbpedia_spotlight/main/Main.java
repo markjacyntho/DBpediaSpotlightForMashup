@@ -69,7 +69,7 @@ public class Main
 								                currentPosition + " of " + 
 									            numberOfDBpediaResources + ":");
 							System.out.println(current);
-							System.out.print("Approve (y/n)?: ");
+							System.out.print("\nApprove (y/n)?: ");
 							@SuppressWarnings("resource")
 							Scanner sc = new Scanner(System.in);
 							char answer = sc.nextLine().toLowerCase().charAt(0);
