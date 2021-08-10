@@ -3,11 +3,13 @@ Using DBpedia Spotlight (https://www.dbpedia-spotlight.org/), a tool for automat
 
 1. DBpedia resources extraction from text
 
-   This service is straightforward. The operation *List<DBpediaResource> execute(String text, String language, double confidence)*, in the class *br.edu.iff.dbpedia_spotlight.service.Extractor*, receives the text, the language (en, de, nl, fr, es, pt), the confidence threshold (a value between 0.0 and 1.0), and returns the list of DBpedia resources (class *br.edu.iff.dbpedia_spotlight.service.DBpediaResource*) automatically extracted from the text. Each DBpedia resource object contains the resource URI, rdfs:label, rdfs:comment, and owl:sameAs related English resource URI. It is noteworthy that this service works with long texts.
+   This service is straightforward. The operation *List<DBpediaResource> execute(String text, String language, double confidence)*, in the class *br.edu.iff.dbpedia_spotlight.service.Extractor*, receives the text, the language (en, de, nl, fr, es, pt), the confidence threshold (a value between 0.0 and 1.0), and returns the list of DBpedia resources (class *br.edu.iff.dbpedia_spotlight.service.DBpediaResource*) automatically extracted from the text. Each DBpedia resource object contains the resource URI, rdfs:label, rdfs:comment, and owl:sameAs related English resource URI. 
+   
+   It is noteworthy that this service works with long texts.
 
 2. Linking to DBpedia resources for Linked Data mashup
     
-    This service uses the first one to extract DBpedia resources from textual values related to specified resources and then links the extracted DBpedia resources to the specified resources, using a specified property (e.g. rdfs:seeAlso). The operation *void execute(Model input, Model output, String language, double confidence, Approver approver)*, in the class *br.edu.iff.dbpedia_spotlight.service.Linker*, receives an Apache Jena model (RDF graph) as input and fills in the Jena output model with the extracted DBpedia resources. The optional *approver* is an implementation of the nested interface *Linker.Approver*, which contains the logic to approve each automatically extracted DBpedia resource. 
+    This service uses the first one to extract DBpedia resources from textual values related to specified resources and then links the extracted DBpedia resources to the specified resources, using a specified property (e.g. rdfs:seeAlso). The operation *void execute(Model input, Model output, String language, double confidence, Approver approver)*, in the class *br.edu.iff.dbpedia_spotlight.service.Linker*, receives an Apache Jena model (RDF graph) as input and fills in the Jena output model with the extracted DBpedia resources. The optional *approver* is an implementation of the nested interface *Linker.Approver*, which contains the logic to approve each extracted DBpedia resource. 
     
     The RDF triples in the input model must be in accordance to the following template: 
         
@@ -27,8 +29,11 @@ Using DBpedia Spotlight (https://www.dbpedia-spotlight.org/), a tool for automat
     5. complete output RDF file path (local path only).
     
     With approval (y) means the user will be asked for approving (y) or not (n) each extracted DBpedia resource, improving the accuracy. Without approval (n) means the extraction and linking will be completely automatic (some wrong DBpedia resources may appear). 
+    
     The syntax of the input RDF file is determined by the content type (if an HTTP request), then the file extension if there is no content type. The permitted syntaxes and corresponding file extensions are: RDF/XML (.rdf), TURTLE (.ttl), and N-TRIPLES (.nt). Other file extensions will raise an error with the message "Content is not allowed in prolog".
+    
     The syntax of the output RDF file is also determined by the same file extension correspondence. Nevertheless, if an unknown file extension is used, the syntax will be RDF/XML.
+    
     A Windows executable file (spotlightLinker.exe) and runnable JAR (JavaSE-11) file  (spotlightLinker.jar) are provided in the releases of the application.
     
     To illustrate the use of the application, two examples are available:
