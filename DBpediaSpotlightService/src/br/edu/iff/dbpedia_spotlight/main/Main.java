@@ -13,7 +13,7 @@ import br.edu.iff.dbpedia_spotlight.service.Linker;
 import br.edu.iff.dbpedia_spotlight.service.Linker.Approver;
 
 public class Main 
-{
+{ 
    
 	private static String outputSyntax(String outputFile)
 	{
