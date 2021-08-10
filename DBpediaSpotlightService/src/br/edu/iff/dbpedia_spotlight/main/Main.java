@@ -81,7 +81,7 @@ public class Main
 				};
 				
 		try 
-		{
+		{ 
 			System.out.println("Reading file " + inputFile);
 			
 			//read from input file to input model
