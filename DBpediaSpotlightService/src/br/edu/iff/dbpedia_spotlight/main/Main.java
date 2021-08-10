@@ -35,13 +35,13 @@ public class Main
 		if (args.length != 5)
 		{	
 			System.out.println(
-					"All the following command line arguments must be provided,"
-					+ " in this order, separated by space:\n"
-					+ "\n1) with approval (y) or without approval (n);"
-					+ "\n2) language code (en, pt, es, de, nl, fr); "
-					+ "\n3) confidence value in interval [0.0, 1.0];"
-					+ "\n4) complete rdf input file path;"
-					+ "\n5) complete rdf output file path.");
+				   "All the following command line arguments must be provided,"
+				 + " in this order, separated by space:\n"
+				 + "\n1) with approval (y) or without approval (n);"
+				 + "\n2) language code (one of: en, pt, es, de, nl, fr); "
+				 + "\n3) confidence value in interval [0.0, 1.0];"
+				 + "\n4) complete input RDF file path (local path or HTTP URL);"
+				 + "\n5) complete output RDF file path (local path).");
 			return; //exit program
 		}	
 		
@@ -51,16 +51,6 @@ public class Main
 		String inputFile = args[3];
 		String outputFile = args[4];
 		
-		System.out.println("Reading file " + inputFile);
-		
-		//read from input file to input model
-		Model input = ModelFactory.createDefaultModel();
-		input.read(inputFile);
-		
-		System.out.println("Processing...");
-		
-		//output model
-		Model output = ModelFactory.createDefaultModel();	
 		Linker.Approver approver =
 				new Approver()
 				{
@@ -92,6 +82,17 @@ public class Main
 				
 		try 
 		{
+			System.out.println("Reading file " + inputFile);
+			
+			//read from input file to input model
+			Model input = ModelFactory.createDefaultModel();
+			input.read(inputFile);
+			
+			System.out.println("Processing...");
+			
+			//output model
+			Model output = ModelFactory.createDefaultModel();	
+			
 			Linker.soleInstance().execute(input, 
 						                  output, 
 						                  language, 
