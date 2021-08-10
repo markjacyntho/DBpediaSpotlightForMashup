@@ -36,7 +36,7 @@ Using DBpedia Spotlight (https://www.dbpedia-spotlight.org/), a tool for automat
     
     A Windows executable file (spotlightLinker.exe) and runnable JAR (JavaSE-11) file  (spotlightLinker.jar) are provided in the releases of the application.
     
-    To illustrate the use of the application, two examples are available:
+    To illustrate the use of the application, two examples of academic articles are available:
     
     1. English example (en)
         * command line: spotlightLinker n en 0.5 input.ttl output.ttl
