@@ -45,8 +45,4 @@ Using DBpedia Spotlight (https://www.dbpedia-spotlight.org/), a tool for automat
     
     
     Sincerely,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prof. Mark Douglas de Azevedo Jacyntho.
-<<<<<<< HEAD
-    
-=======
-    
->>>>>>> refs/remotes/origin/main
+
