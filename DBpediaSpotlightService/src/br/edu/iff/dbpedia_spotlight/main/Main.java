@@ -41,7 +41,7 @@ public class Main
 				 + "\n2) language code (one of: en, pt, es, de, nl, fr); "
 				 + "\n3) confidence value in interval [0.0, 1.0];"
 				 + "\n4) complete input RDF file path (local path or HTTP URL);"
-				 + "\n5) complete output RDF file path (local path).");
+				 + "\n5) complete output RDF file path (local path only).");
 			return; //exit program
 		}	
 		

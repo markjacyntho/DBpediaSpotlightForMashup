@@ -24,7 +24,7 @@ Using DBpedia Spotlight (https://www.dbpedia-spotlight.org/), a tool for automat
     2. language code (en, pt, es, de, nl, fr);
     3. confidence value in interval [0.0, 1.0];
     4. complete input RDF file path (local path or HTTP URL);
-    5. complete output RDF file path (local path).
+    5. complete output RDF file path (local path only).
     
     With approval (y) means the user will be asked for approving (y) or not (n) each extracted DBpedia resource, improving the accuracy. Without approval (n) means the extraction and linking will be completely automatic (some wrong DBpedia resources may appear). 
     The syntax of the input RDF file is determined by the content type (if an HTTP request), then the file extension if there is no content type. The permitted sintaxes and corresponding file extensions are: RDF/XML (.rdf), TURTLE (.ttl), and N-TRIPLES (.nt). Other file extensions will raise an error with message "Content is not allowed in prolog".
