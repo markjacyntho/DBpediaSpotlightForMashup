@@ -3,7 +3,7 @@ Using DBpedia Spotlight (https://www.dbpedia-spotlight.org/), a tool for automat
 
 1. DBpedia resources extraction from text
 
-   This service is straightforward. The operation *List<DBpediaResource> execute(String text, String language, double confidence)* in the class *br.edu.iff.dbpedia_spotlight.service.Extractor*, receives the text, the language (one of: en, de, nl, fr, es, pt), the confidence threshold (a value between 0.0 and 1.0), and returns the list of DBpedia resources (class *br.edu.iff.dbpedia_spotlight.service.DBpediaResource*) automatically extracted form the text. Each DBpedia resource contains: resource URI, rdfs:label, rdfs:comment and owl:sameAs related english resource URI.
+   This service is straightforward. The operation *List<DBpediaResource> execute(String text, String language, double confidence)* in the class *br.edu.iff.dbpedia_spotlight.service.Extractor*, receives the text, the language (one of: en, de, nl, fr, es, pt), the confidence threshold (a value between 0.0 and 1.0), and returns the list of DBpedia resources (class *br.edu.iff.dbpedia_spotlight.service.DBpediaResource*) automatically extracted form the text. Each DBpedia resource contains: resource URI, rdfs:label, rdfs:comment and owl:sameAs related english resource URI. It is noteworthy that this service works with long texts.
 
 2. Linking to DBpedia resources for Linked Data mashup
     
