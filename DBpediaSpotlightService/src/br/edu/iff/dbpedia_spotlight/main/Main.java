@@ -64,7 +64,7 @@ public class Main
 						
 						if (approve)
 						{
-							System.out.println("\nResource:"+subject.getURI());
+							System.out.println("\nResource: "+subject.getURI());
 							System.out.println("\nDBpedia resource " + 
 								                currentPosition + " of " + 
 									            numberOfDBpediaResources + ":");
